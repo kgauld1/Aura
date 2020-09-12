@@ -1,4 +1,4 @@
-var moodDict = {"neutral": 0, "happy": 1, "sad": 2, "disguted": 3, "anger": 4, "fearful": 5, "surprise": 6}
+var moodDict = {"neutral": 0, "happy": 1, "sad": 2, "disgusted": 3, "anger": 4, "fearful": 5, "surprise": 6}
 
 var datasets = [{ 
         data: [],
