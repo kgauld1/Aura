@@ -47,7 +47,7 @@ video.addEventListener("playing", () => {
 const improvRNN = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv')
 
 
-//generic sequence, can be trained later
+//generic sequence, can be changed later
 const { midi, Note } = Tonal
 
 const sequence = {
