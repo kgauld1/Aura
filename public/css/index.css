@@ -29,13 +29,12 @@ body {
 .sidebar {
   position: absolute;
   padding: 20px;
-  background: white;
+  background: rgba(255, 255, 255, 0.795);
   width: 100px;
   height: 100%;
 }
 
 .sidebar-content{
-	/* background-image: url('https://cdn.discordapp.com/attachments/744920006105759755/754119314109366302/ripple.png'); */
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover; 
@@ -55,5 +54,11 @@ body {
 	text-decoration: none;
 }
 
-
+#video {
+  border-radius: 10px;
+  left: 35%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
 

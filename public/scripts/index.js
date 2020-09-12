@@ -9,9 +9,7 @@
 
 
 
-const video = document.getElementById('video'),
-      canvas = document.getElementById('canvas'),
-      context = canvas.getContext('2d');
+const video = document.getElementById('video');
 
 function startVideo(){
   navigator.getUserMedia(
@@ -20,14 +18,13 @@ function startVideo(){
     err => console.error(err)
   )
 }
-startVideo();
 
-// Promise.all([
-//   faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
-//   faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
-//   faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
-//   faceapi.nets.faceExpressionNet.loadFromUri("/models"),
-// ]).then(startVideo);
+Promise.all([
+  faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
+  faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+  faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+  faceapi.nets.faceExpressionNet.loadFromUri("/models"),
+]).then(startVideo);
 
 video.addEventListener("playing", () => {
   
