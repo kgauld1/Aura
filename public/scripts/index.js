@@ -1,14 +1,3 @@
-
-
-
-
-
-
-
-//document.body.style.backgroundImage = "linear-gradient(-100deg, lightblue, purple)"
-
-
-
 const video = document.getElementById('video');
 
 function startVideo(){
@@ -29,21 +18,23 @@ Promise.all([
 video.addEventListener("playing", () => {
   
   setInterval(async () => {
-    
+    const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
 
-    // const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions();
+    var dominantEmotion = "neutral", dominantVal = 0;
+    if (detections.length != 0){
+      for (var emotion in detections[0]["expressions"]){
+        if (detections[0]["expressions"][emotion] > dominantVal){
+          dominantVal = detections[0]["expressions"][emotion];
+          dominantEmotion = emotion;
+        }
+      }
 
-    // var dominantEmotion = "neutral", dominantVal = 0;
-    // if (detections.length != 0){
-    //   for (var emotion in detections[0]["expressions"]){
-    //     if (detections[0]["expressions"][emotion] > dominantVal){
-    //       dominantVal = detections[0]["expressions"][emotion];
-    //       dominantEmotion = emotion;
-    //     }
-    //   }
-
-    //   console.log(dominantEmotion)
-    //}
+      console.log(dominantEmotion)
+      if (dominantEmotion == "sad"){
+        document.body.style.backgroundImage = "linear-gradient(-100deg, yellowgreen, lightblue, purple)"
+      }
+      
+    }
     
   }, 1000);
 })
