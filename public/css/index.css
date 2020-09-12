@@ -62,13 +62,10 @@ body {
   transform: translate(-50%, -50%);
 }
 
-#daily-graph {
+.graph {
   margin-left: 10%;
-  width: 50%;
+  padding-top: 5%;
   height: 50%;
+  width: 50%;
 }
 
-
-#now-playing {
-  margin: 25%;
-}

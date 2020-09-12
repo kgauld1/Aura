@@ -1,6 +1,6 @@
-var dailyGraph = document.getElementById("daily-graph").getContext('2d');
 
-new Chart(dailyGraph, {
+
+new Chart(document.getElementById("daily-graph"), {
   type: 'line',
   data: {
     labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
@@ -35,7 +35,10 @@ new Chart(dailyGraph, {
   options: {
     title: {
       display:true,
-      text: 'Emotions per day'
+      text: 'Emotions per Day',
+      responsive: true,
+      maintainAspectRatio: true
+
     }
   }
 })

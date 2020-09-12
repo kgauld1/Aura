@@ -42,16 +42,12 @@ video.addEventListener("playing", () => {
 })
 
 
+///Magenta
 
-/// MAGENTA ///
+const improvRNN = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv')
 
 
-
-const improvCheckpoint = 'https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv'
-const improvRNN = new mm.MusicRNN(improvCheckpoint)
-
-//demo sequence
-//we can change this
+//generic sequence, can be trained later
 const sequence = {
   ticksPerQuarter: 220,
   totalTime: 28.5,
@@ -100,24 +96,21 @@ const sequence = {
     { pitch: 'G4', startTime: 25.5, endTime: 28.5 }
   ]
 }
+
 const quantizedSequence = mm.sequences.quantizeNoteSequence(sequence, 1)
 
 
-
-//generation + playing sound
+//generation code
 
 const synth = new Tone.Synth().toDestination()
 
 const startProgram = async () => {
   try {
     await improvRNN.initialize()
-
-
-    //THIS LINE IS BROKEN
+    
+    
+    //This line is broken
     let improvisedMelody = await improvRNN.continueSequence(quantizedSequence, 60, 1.1, ['Bm', 'Bbm', 'Gb7', 'F7', 'Ab', 'Ab7', 'G7', 'Gb7', 'F7', 'Bb7', 'Eb7', 'AM7'])
-    console.log('still working');
-
-
 
     const playOriginalMelody = () => {
       sequence.notes.forEach(note => {
@@ -134,12 +127,14 @@ const startProgram = async () => {
     console.error(error)
   }
 }
+
+
 let started = false;
-window.addEventListener('keydown', e => {
+window.addEventListener('keydown', e =>{
   if(!started){
     Tone.start();
     started = true;
   }
   console.log('click');
   startProgram();
-});
+})
