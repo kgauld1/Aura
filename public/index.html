@@ -4,13 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>repl.it</title>
-    <link href="\public\css\index.css" rel="stylesheet" type="text/css" />
+    <link href="/css/index.css" rel="stylesheet" type="text/css" />
 
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
 
 
   </head>
-  <body>
+  <body scroll="no" style="overflow:hidden">
 		<div class = "content">
 			<div class="sidebar">
 				<div class="sidebar-content">
@@ -18,17 +18,17 @@
 					<ul>
 						<center>
 						<li>
-							<a href="index.html"><img src="\images\home.png" alt="home" style="width:40px;"><br>
+							<a href="/"><img src="\images\home.png" alt="home" style="width:40px;"><br>
 								Home 
 							</a>
 						</li>
 						<li>
-							<a href="analytics.html"><img src="\images\graph.png" alt="graph" style="width:30px;"> <br>
+							<a href="/analytics.html"><img src="\images\graph.png" alt="graph" style="width:30px;"> <br>
 								Analytics 
 							</a>
 						</li>
 						<li>
-							<a href="preferences.html"><img src="\images\settings.png" alt="settings" style="width:40px;"><br>
+							<a href="/preferences.html"><img src="\images\settings.png" alt="settings" style="width:40px;"><br>
 								Preferences 
 							</a>
 						</li>
@@ -39,9 +39,9 @@
 			
 			<video id="video" playsinline autoplay></video>
 			<canvas id="canvas"></canvas>
-			<script defer src="face-api.min.js"></script>
 
-			<script defer src="\scripts\index.js"></script>
+			<script defer src="/scripts/face-api.min.js"></script>
+			<script defer src="/scripts/index.js"></script>
 		</div> 
   </body>
 </html>
