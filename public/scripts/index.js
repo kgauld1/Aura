@@ -29,11 +29,13 @@ video.addEventListener("playing", () => {
         }
       }
 
-      console.log(dominantEmotion)
+      //console.log(dominantEmotion)
       if (dominantEmotion == "sad"){
-        document.body.style.backgroundImage = "linear-gradient(-100deg, yellowgreen, lightblue, purple)"
+        document.body.style.backgroundImage = "linear-gradient(-100deg, #E2F0CB, #B5EAD7, #88E1F2, #C7CEEA)"
       }
-      
+      else if (dominantEmotion == "happy"){
+        document.body.style.backgroundImage = "linear-gradient(-100deg, #FF9AA2, #FFB7B2, #FFDAC1, #E2F0CB)"
+      }
     }
     
   }, 1000);

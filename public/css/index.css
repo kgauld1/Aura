@@ -7,7 +7,7 @@
 }
 
 body {
-  background: linear-gradient(-100deg, #59B673, #5968B6);
+  background: linear-gradient(-100deg, #FF9AA2, #FFB7B2, #FFDAC1,#E2F0CB, #B5EAD7, #88E1F2, #C7CEEA);
   background-size: 200% 200%;
   animation: move 60s ease-in-out infinite;  
 }
@@ -62,3 +62,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
+#line-chart {
+  margin-left: 50%;
+}
