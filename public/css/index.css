@@ -62,6 +62,13 @@ body {
   transform: translate(-50%, -50%);
 }
 
-#line-chart {
-  margin-left: 50%;
+#daily-graph {
+  margin-left: 10%;
+  width: 50%;
+  height: 50%;
+}
+
+
+#now-playing {
+  margin: 25%;
 }
