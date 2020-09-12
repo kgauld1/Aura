@@ -39,6 +39,7 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;  
   background-size: cover; 
+	margin-top: 50px;
 }
 
 .sidebar ul{
@@ -51,22 +52,38 @@ body {
 	font-size: 0.8em;
 }
 
-.sidebar li a{
-	text-decoration: none;
-}
+.main{
+	margin-left: 21vh;
 
+}
 #video {
   border-radius: 10px;
-  left: 100px;
+  margin-left: 400px;
   position: absolute;
-  top: 50%;
+  top: 53%;
   transform: translate(-50%, -50%);
 }
 
-.graph {
-  margin-left: 10%;
-  padding-top: 5%;
-  height: 50%;
-  width: 50%;
+.graph-div{
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 10px;
+  margin-top: 3%;
+  height: 40%;
+  width: 40%;
 }
 
+
+
+.rightside{
+	float: right;
+	margin-right: 100px;
+}
+
+
+.webpage-content{
+  display: grid;
+  grid-template-columns: 5% 95%;
+  grid-column-gap: 50px;
+
+}

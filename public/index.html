@@ -7,12 +7,13 @@
     <link href="/css/index.css" rel="stylesheet" type="text/css" />
 		<link rel="icon" href="https://cdn.discordapp.com/attachments/744920006105759755/754169103924854815/auraLogo.png">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500&display=swap" rel="stylesheet">
-
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"> 
+		<!-- Load the custom CSS style file -->
+		<link rel="stylesheet" type="text/css" href="/css/style.css"> 
 
   </head>
   <body scroll="no" style="overflow:hidden">
 		<div class = "content">
-
 			<div class="sidebar">
 				<div class="sidebar-content">
 					<center>
@@ -27,12 +28,12 @@
 							</a>
 						</li>
 						<li>
-							<a href="/analytics.html"><img src="\images\graph.png" alt="graph" style="width:40px;" > <br>
+							<a href="\analytics.html"><img src="\images\graph.png" alt="graph" style="width:40px;" > <br>
 								Analytics 
 							</a>
 						</li>
 						<li>
-							<a href="/preferences.html"><img src="\images\settings.png" alt="settings" style="width:40px;"><br>
+							<a href="\preferences.html"><img src="\images\settings.png" alt="settings" style="width:40px;"><br>
 								Preferences 
 							</a>
 						</li>
@@ -40,16 +41,57 @@
 					</ul>
 				</div>
 			</div>
-			
-      <div>
-			  <video id="video" playsinline autoplay></video>
-      </div>
-      
-      <script defer src="tonal.min.js"></script>
-      <script defer src= "https://unpkg.com/tone"></script>
-      <script defer src= "https://cdn.jsdelivr.net/npm/@magenta/music@1.0.0"></script>
-			<script defer src="/scripts/face-api.min.js"></script>
-		  <script defer src="/scripts/index.js"></script>
+			<div class="main">
+				<div>
+					<video id="video" playsinline autoplay></video>
+				</div>
+				<script defer src="tonal.min.js"></script>
+				<script defer src= "https://unpkg.com/tone"></script>
+				<script defer src= "https://cdn.jsdelivr.net/npm/@magenta/music@1.0.0"></script>
+				<script defer src="/scripts/face-api.min.js"></script>
+				<script defer src="/scripts/index.js"></script>
+				
+				
+				<div class="rightside">
+					<div class="player"> 
+						<!-- Define the section for displaying details -->
+						<div class="details"> 
+							<div class="now-playing">PLAYING x OF y</div> 
+							<div class="track-art"></div> 
+							<div class="track-name">Track Name</div> 
+							<div class="track-artist">Track</div> 
+						</div> 
+						<!-- Define the section for displaying track buttons -->
+						<div class="buttons"> 
+							<div class="prev-track" onclick="prevTrack()"> 
+								<i class="fa fa-step-backward fa-2x"></i> 
+							</div> 
+							<div class="playpause-track" onclick="playpauseTrack()"> 
+								<i class="fa fa-play-circle fa-3x"></i> 
+							</div> 
+							<div class="next-track" onclick="nextTrack()"> 
+								<i class="fa fa-step-forward fa-2x"></i> 
+							</div> 
+						</div> 
+						<!-- Define the section for displaying the seek slider-->
+						<div class="slider_container"> 
+							<div class="current-time">00:00</div> 
+							<input type="range" min="1" max="100"
+								value="0" class="seek_slider" onchange="seekTo()"> 
+							<div class="total-duration">00:00</div> 
+						</div> 
+						<!-- Define the section for displaying the volume slider-->
+						<div class="slider_container"> 
+							<i class="fa fa-volume-down"></i> 
+							<input type="range" min="1" max="100"
+								value="99" class="volume_slider" onchange="setVolume()"> 
+							<i class="fa fa-volume-up"></i> 
+						</div> 
+					</div> 
+				</div>
+			</div>
+
+			<script src="/scripts/script.js"></script> 
 		</div> 
   </body>
 </html>

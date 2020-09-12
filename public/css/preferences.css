@@ -1,0 +1,12 @@
+.settings-card{
+	margin-top: 3%;
+	margin-left: 2%;
+	border-radius: 30px;
+	background: white;
+	width: 95%;
+	height: 90vh;
+}
+
+.card-content{
+	padding: 5%;
+}
