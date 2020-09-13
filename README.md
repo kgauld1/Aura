@@ -4,7 +4,7 @@ Aura is your personal musical companion designed to monitor your emotions and ge
 
 Using your webcam, Aura detects your mood through your facial expression, categorizing it as happy, neutral, or sad. Then, Aura uses machine learning to generate music reflective of your current emotional state. Aura can also be customized to your preferences to give you the best experience possible. Users can choose to include drums and nature sounds in addition to the instrumentals.
 
-##Built With
+## Built With
 - HTML/CSS
 - JavaScript
 - node.js
