@@ -50,7 +50,7 @@ let players = {
   'drums': new Tone.Player({
     url: 'audio/drums.wav',
     loop: true}).toDestination(),
-  'natureOn': false, 'drumsOn': false
+  'natureOn': true, 'drumsOn': true
 }
 players['rain'].volume.value = -2;
 
