@@ -1,7 +1,15 @@
 var dailyData = JSON.parse(localStorage.getItem("data"));
 var weeklyData = JSON.parse(localStorage.getItem("weeklyData"));
 
-console.log(weeklyData);
+var piechartData = [];
+for (let i=0; i<3; i++){
+  piechartData[i] = dailyData[i].data.reduce(function(a,b){
+  return a+b;
+  }, 0);
+
+  dailyData[i].data = dailyData[i].data.map(function(item) { return item/60 })
+  weeklyData[i].data = weeklyData[i].data.map(function(item) { return item/60 })
+}
 
 new Chart(document.getElementById("daily-graph"), {
   type: 'line',
@@ -20,7 +28,7 @@ new Chart(document.getElementById("daily-graph"), {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'Seconds'
+          labelString: 'Minutes'
         }
       }],
       xAxes: [{
@@ -51,7 +59,7 @@ new Chart(document.getElementById("weekly-graph"), {
       yAxes: [{
         scaleLabel: {
           display: true,
-          labelString: 'Seconds'
+          labelString: 'Minutes'
         }
       }],
       xAxes: [{
@@ -63,3 +71,23 @@ new Chart(document.getElementById("weekly-graph"), {
     }
   }
 })
+
+new Chart(document.getElementById("doughnut-chart"), {
+    type: 'doughnut',
+    data: {
+      labels: ["Neutral", "Happy", "Sad"],
+      datasets: [
+        {
+          label: "Moods",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f"],
+          data: piechartData,
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Your Moods in a Day'
+      }
+    }
+});

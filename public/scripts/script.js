@@ -1,6 +1,6 @@
 //generic sequence, can be changed later
 
-let reverb = new Tone.Convolver('https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/hm2_000_ortf_48k.mp3').toDestination();
+let reverb1 = new Tone.Convolver('https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/hm2_000_ortf_48k.mp3').toDestination();
 let sadsynth = new Tone.Sampler({
   C3: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-c3.mp3',
   'D#3': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-ds3.mp3',
@@ -14,18 +14,43 @@ let sadsynth = new Tone.Sampler({
   'D#5': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-ds5.mp3',
   'F#5': 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-fs5.mp3',
   A5: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/plastic-marimba-a5.mp3'
-}).connect(reverb);
+}).connect(reverb1);
 sadsynth.release.value = 2;
 
 
+let reverb2 = new Tone.Convolver('https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/hm2_000_ortf_48k.mp3').toDestination();
+let neutralsynth = new Tone.Sampler({
+  'A0': '/audio/piano-A0.mp3',
+  'A1': '/audio/piano-A1.mp3',
+  'A2': '/audio/piano-A2.mp3',
+  'A3': '/audio/piano-A3.mp3',
+  'A4': '/audio/piano-A4.mp3',
+  'A5': '/audio/piano-A5.mp3',
+  'A6': '/audio/piano-A6.mp3'
+}).connect(reverb2);
+neutralsynth.release.value = 2;
 
+let reverb3 = new Tone.Convolver('https://s3-us-west-2.amazonaws.com/s.cdpn.io/969699/hm2_000_ortf_48k.mp3').toDestination();
+let happysynth = new Tone.Sampler({
+  'A1': '/audio/guitar-A1.mp3',
+  'A2': '/audio/guitar-A2.mp3',
+  'A3': '/audio/guitar-A3.mp3',
+  'C4': '/audio/guitar-C4.mp3'
+}).connect(reverb3);
+happysynth.release.value = 2;
 
+let rainPlayer = new Tone.Player('audio/rain.wav').toDestination()
+rainPlayer.loop = true;
 
-
+let players = {
+  'rain': new Tone.Player('audio/rain.wav').toDestination()
+  'nature': new Tone.Player('audio/birdsong.mp3').toDestination()
+}
 
 const { midi, Note } = Tonal
 let chordImprov = {
   'sad': {
+    'temp': 1.1,
     'sequence': mm.sequences.quantizeNoteSequence({
       ticksPerQuarter: 220,
       totalTime: 58,
@@ -74,11 +99,12 @@ let chordImprov = {
         { pitch: midi('G3'), startTime: 25.5, endTime: 28.5 }
       ]
     }, 1),
-    'chords': ['Bm', 'Bbm', 'Gb7', 'F7', 'Ab', 'Ab7', 'G7', 'Gb7', 'F7', 'Bb7', 'Eb7', 'AM7'],
+    'chords': ['Bm', 'Bbm', 'Gbm7', 'Fm7', 'Abm', 'Abm7', 'Gm7', 'Gbm7', 'Fm7', 'Bbm7', 'Ebm7', 'AM7'],
     'synth': sadsynth
   },
 
   'happy': {
+    'temp': 1.5,
     'sequence': mm.sequences.quantizeNoteSequence({
       ticksPerQuarter: 220,
       totalTime: 58,
@@ -128,9 +154,11 @@ let chordImprov = {
       ]
     }, 1),
     'chords': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#'],
+    'synth':happysynth
   },
 
   'neutral': {
+    'temp': 1.25,
     'sequence': mm.sequences.quantizeNoteSequence({
       ticksPerQuarter: 220,
       totalTime: 58,
@@ -180,31 +208,31 @@ let chordImprov = {
       ]
     }, 1),
     'chords': ['Bm', 'Bbm', 'Gb7', 'F7', 'Ab', 'Ab7', 'G7', 'Gb7', 'F7', 'Bb7', 'Eb7', 'AM7'],
+    'synth': neutralsynth
   }
 }
 
 ///Magenta
 const improvRNN = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv')
 
+const natureSounds = new Tone.Players({
+  rain: '/audio/rain.wav',
+  birdsong: '/audio/birdsong.mp3'
+});//
 
-// const natureSounds = new Tone.Players({
-//   rain: '/audio/rain.wav'
-//   birdsong: '/audio/birdsong.mp3'
-// });
+const drumSounds = new Tone.Players({
+  drums: '/audio/drums.wav'
+});
 
-// const drumSounds = new Tone.Players({
-//   drums: '/audio/drums.wav'
-// });
+
 
 let generatedSequence = [];
 let generationIntervalTime = Tone.Time('8n').toSeconds()*18;
-let emotion = dominantEmotion;
 
 function generateNext() {
   if (!isPlaying) return;
   if (generatedSequence.length < 10) {
-    console.log('generating');
-    lastGenerationTask = improvRNN.continueSequence(chordImprov[emotion].sequence, 20, 1.5, chordImprov[emotion].chords)
+    lastGenerationTask = improvRNN.continueSequence(chordImprov[dominantEmotion].sequence, 20, chordImprov[dominantEmotion].temp, chordImprov[dominantEmotion].chords)
       .then(genSeq => {
         generatedSequence = generatedSequence.concat(
           genSeq.notes
@@ -229,8 +257,8 @@ const play = async() => {
   setTimeout(play, 1000)
 }
 function triggerNote(p, a){
-  if(a) chordImprov[emotion].synth.triggerAttack(Note.fromMidi(p.pitch));
-  else chordImprov[emotion].synth.triggerRelease(Note.fromMidi(p.pitch))
+  if(a) chordImprov[dominantEmotion].synth.triggerAttack(Note.fromMidi(p.pitch));
+  else chordImprov[dominantEmotion].synth.triggerRelease(Note.fromMidi(p.pitch))
   //synth.triggerAttackRelease(Note.fromMidi(p.pitch), p.quantizedEndStep-p.quantizedStartStep)
 }
 
@@ -251,7 +279,7 @@ function playTrack() {
     started = true;
   }
   console.log('click');
-  for (let e of chordImprov) e.synth.volume.value = 1;
+  for (let e in chordImprov) chordImprov[e].synth.volume.value = 1; 
   startProgram();
   // Replace icon with the pause icon 
   playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-3x"></i>'; 
@@ -260,13 +288,11 @@ function playTrack() {
 function pauseTrack() { 
   // Stop
   console.log('paused');
-  for (let e of chordImprov) e.synth.volume.value = 0;
+  for (let e in chordImprov) chordImprov[e].synth.volume.value = 0;
   generatedSequence = [];
   // Replace icon with the play icon 
   playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-3x"></i>';; 
 } 
-
-
 
 
 // Specify globally used values 
@@ -281,7 +307,4 @@ function playpauseTrack() {
   if (!isPlaying) playTrack(); 
   else pauseTrack(); 
   isPlaying = !isPlaying;
-} 
-
-
-
+}

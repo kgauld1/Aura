@@ -10,46 +10,48 @@ var track_index = 0, basedOnMood = true;
 // Check if local storage is empty
 // If true, then initialize daily and weekly data structures
 // If false, grab the data that is currently in local storage
-if (window.localStorage.length == 0){
-  var weeklyData = [{ 
-        data: new Array(7).fill(0),
-        label: "Neutral",
-        borderColor: "grey",
-        fill: false
-      }, { 
-        data: new Array(7).fill(0),
-        label: "Happy",
-        borderColor: "yellow",
-        fill: false
-      }, { 
-        data: new Array(7).fill(0),
-        label: "Sad",
-        borderColor: "blue",
-        fill: false
-      }
-    ];
+let weeklyData = JSON.parse(localStorage.getItem("weeklyData"))
+let dailyData = JSON.parse(localStorage.getItem("data"))
 
-  var dailyData = [{ 
-        data: new Array(24).fill(0),
-        label: "Neutral",
-        borderColor: "grey",
-        fill: false
-      }, { 
-        data: new Array(24).fill(0),
-        label: "Happy",
-        borderColor: "yellow",
-        fill: false
-      }, { 
-        data: new Array(24).fill(0),
-        label: "Sad",
-        borderColor: "blue",
-        fill: false
-      }
-    ];
+
+if(weeklyData == null){
+  weeklyData = [{
+      data: new Array(7).fill(0),
+      label: "Neutral",
+      borderColor: "#3e95cd",
+      fill: false
+    }, { 
+      data: new Array(7).fill(0),
+      label: "Happy",
+      borderColor: "#8e5ea2",
+      fill: false
+    }, { 
+      data: new Array(7).fill(0),
+      label: "Sad",
+      borderColor: "#3cba9f",
+      fill: false
+    }
+  ];
 }
-else {
-  var weeklyData = JSON.parse(localStorage.getItem("weeklyData"))
-  var dailyData = JSON.parse(localStorage.getItem("data"))
+
+if(dailyData == null){
+  dailyData = [{ 
+      data: new Array(24).fill(0),
+      label: "Neutral",
+      borderColor: "#3e95cd",
+      fill: false
+    }, { 
+      data: new Array(24).fill(0),
+      label: "Happy",
+      borderColor: "#8e5ea2",
+      fill: false
+    }, { 
+      data: new Array(24).fill(0),
+      label: "Sad",
+      borderColor: "#3cba9f",
+      fill: false
+    }
+  ];
 }
 
 // Get the current time and day
@@ -57,47 +59,6 @@ var currentDate = new Date();
 var time = currentDate.getHours();
 var day = currentDate.getDay();
 
-// Reset weekly data in local storage every seven days
-setInterval(async () => {
-  weeklyData = [{ 
-        data: new Array(7).fill(0),
-        label: "Neutral",
-        borderColor: "grey",
-        fill: false
-      }, { 
-        data: new Array(7).fill(0),
-        label: "Happy",
-        borderColor: "yellow",
-        fill: false
-      }, { 
-        data: new Array(7).fill(0),
-        label: "Sad",
-        borderColor: "blue",
-        fill: false
-      }
-    ]
-}, 604800000)
-
-// Reset daily data in local storage every day
-setInterval(async () => {
-  dailyData = [{ 
-        data: new Array(24).fill(0),
-        label: "Neutral",
-        borderColor: "grey",
-        fill: false
-      }, { 
-        data: new Array(24).fill(0),
-        label: "Happy",
-        borderColor: "yellow",
-        fill: false
-      }, { 
-        data: new Array(24).fill(0),
-        label: "Sad",
-        borderColor: "blue",
-        fill: false
-      }
-    ]
-}, 86400000)
 
 // Webcam video implementation
 const video = document.getElementById('video');
@@ -108,8 +69,6 @@ function startVideo(){
     err => console.error(err)
   )
 }
-
-
 
 // Load faceapi models
 Promise.all([
@@ -145,13 +104,14 @@ video.addEventListener("playing", () => {
 
         // Store emotions with day or time in data structure and change colors for happy or sad
         if (dominantEmotion == "neutral"){
+          track_index = 0;
           dailyData[0].data[time]++;
           weeklyData[0].data[day]++;
         }
         else if (dominantEmotion == "sad"){
           track_index = 2;
           document.body.style.backgroundImage = "linear-gradient(-100deg, #E2F0CB, #B5EAD7, #88E1F2, #C7CEEA)"
-          dailTone.Time('8n').toSeconds();yData[1].data[time]++;
+          dailyData[1].data[time]++;
           weeklyData[1].data[day]++;
         }
         else if (dominantEmotion == "happy"){

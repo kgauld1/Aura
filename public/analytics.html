@@ -10,7 +10,7 @@
 
 
   </head>
-  <body scroll="no" style="overflow:hidden">
+  <body>
 		<div class = "content">
 			<div class="sidebar">
 				<div class="sidebar-content">
@@ -35,7 +35,7 @@
 				</div>
 			</div>
 
-			<div class="main">
+			<div class="top-graphs">
 				<div class="graph-div">
 					<br>
 					<canvas id="daily-graph"></canvas>
@@ -47,9 +47,13 @@
 				</div>
 
 			</div>
-		</div> 
-
-
+			<div class="bottom-graph">
+				<div class="graph-div">
+					<br>
+					<canvas id="doughnut-chart" width="500" height="450"></canvas>
+				</div>
+			</div>
+		</div>
 			
     <script src="/scripts/analytics.js"></script>
   </body>
