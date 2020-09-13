@@ -142,7 +142,7 @@ input:checked + .slider:before {
 }
 
 .options{
-	margin-top: 16%;
+	margin-top: 20%;
 	float: right;
 	margin-right: 100px;
 	display: flex; 

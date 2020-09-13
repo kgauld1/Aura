@@ -109,6 +109,8 @@ function startVideo(){
   )
 }
 
+
+
 // Load faceapi models
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
@@ -176,33 +178,34 @@ video.addEventListener("playing", () => {
 
 
 function loadTrack(track_index) { 
-  console.log(track_index);
   // Update details of the track 
+  dominantEmotion = emotions[track_index];
   track_art.style.backgroundImage =  "url(" + img_list[emotions[track_index]] + ")"; 
   track_name.textContent = emotions[track_index].charAt(0).toUpperCase() + emotions[track_index].slice(1);
   now_playing.textContent =  "PLAYING " + (track_index + 1) + " OF 3"; 
 } 
   
 function nextTrack() { 
-  basedOnMood = false;
-  // Go back to the first track if the 
-  // current one is the last in the track list 
+  if (!basedOnMood){
+    // Go back to the first track if the current one is the last in the track list 
   if (track_index < 2) 
     track_index += 1; 
   else track_index = 0; 
   
   loadTrack(track_index); 
+  }
 } 
   
 function prevTrack() { 
-  basedOnMood = true;
-  // Go back to the last track if the 
-  // current one is the first in the track list 
-  if (track_index > 1) 
-    track_index -= 1; 
-  else track_index = 0; 
-    
-  loadTrack(track_index);  
+  if (!basedOnMood){
+    // Go back to the last track if the 
+    // current one is the first in the track list 
+    if (track_index > 1) 
+      track_index -= 1; 
+    else track_index = 0; 
+      
+    loadTrack(track_index);  
+  }
 } 
 
 
@@ -215,6 +218,7 @@ function toggleOptions(){
   }
   else {
     video.pause();
+    
     document.getElementById('video-div').style.display = "none";
     document.querySelector(".rightside").style.marginRight = "35%";
   }
