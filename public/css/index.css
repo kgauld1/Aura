@@ -54,7 +54,6 @@ body {
 
 .main{
 	margin-left: 21vh;
-
 }
 #video {
   border-radius: 10px;
@@ -149,4 +148,13 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.options{
+	float: right;
+	right:0;
+	display: flex; 
+  align-items: center; 
+  flex-direction: column; 
+  justify-content: center; 
 }

@@ -1,25 +1,3 @@
-let now_playing = document.querySelector(".now-playing"); 
-let track_art = document.querySelector(".track-art"); 
-let track_name = document.querySelector(".track-name"); 
-let track_artist = document.querySelector(".track-artist"); 
-  
-let playpause_btn = document.querySelector(".playpause-track"); 
-
-  
-// Specify globally used values 
-let track_index = 0; 
-let isPlaying = false; 
-let updateTimer; 
-  
-// Create the audio element for the player 
-let curr_track = document.createElement('audio'); 
-  
-
-
-function playpauseTrack() {
-  if (!isPlaying) playTrack(); 
-  else pauseTrack(); 
-} 
 
 
 ///Magenta
@@ -79,7 +57,6 @@ const sequence = {
 }
 
 const quantizedSequence = mm.sequences.quantizeNoteSequence(sequence, 1)
-console.log(quantizedSequence)
 
 //generation code
 
@@ -116,15 +93,16 @@ let chordImprov = {
 
 
 let generatedSequence = [];
-let playing = false;
+let generationIntervalTime = Tone.Time('8n').toSeconds();
+let emotion = 'sad';
 
-function generateNext(emotion) {
-  if (!playing) return;
+function generateNext() {
+  if (!isPlaying) return;
   if (generatedSequence.length < 10) {
-    lastGenerationTask = rnn.continueSequence(quantizedSequence, 20, 1.3, chordImprov[emotion])
+    lastGenerationTask = improvRNN.continueSequence(quantizedSequence, 20, 1.3, chordImprov[emotion])
       .then(genSeq => {
         generatedSequence = generatedSequence.concat(
-          genSeq.notes.map(n => n.pitch)
+          genSeq.notes
         );
         setTimeout(generateNext, generationIntervalTime * 1000);
       });
@@ -133,50 +111,63 @@ function generateNext(emotion) {
   }
 }
 
+const play = async() => {
+  while(isPlaying && generatedSequence.length != 0){
+    console.log(isPlaying);
+    let p = generatedSequence[0];
+    synth.triggerAttackRelease(Note.fromMidi(p.pitch), p.quantizedEndStep-p.quantizedStartStep, lastStop)
+    lastStop += p.quantizedEndStep-p.quantizedStartStep
+    generatedSequence.shift();
+  }
+  setTimeout(play, 1000)
+}
 
-// const startProgram = async () => {
-//   await improvRNN.initialize()
-//   let improvisedMelody = await improvRNN.continueSequence(quantizedSequence, 60, , ['Bm', 'Bbm', 'Gb7', 'F7', 'Ab', 'Ab7', 'G7', 'Gb7', 'F7', 'Bb7', 'Eb7', 'AM7']).then 
-//   improvisedMelody.notes;
-  
 
-  
-//   const playGeneratedMelody = () => {
-//     improvisedMelody.notes.forEach(note => {
-//       console.log(note);
-//       console.log(note.quantizedStartStep);
-//       lastStart += note.quantizedEndStep-note.quantizedStartStep;
-//       console.log(lastStart);
-//       synth.triggerAttackRelease(Note.fromMidi(note.pitch), note.quantizedEndStep - note.quantizedStartStep, lastStart)
-//     })
-//   }
-//   playGeneratedMelody()
-// }
+const startProgram = async () => {
+  await improvRNN.initialize()
+  generateNext();
+  play(generatedSequence);
+}
 
-// let started = false;
-// let lastStart = 0;
+let started = false;
+let lastStop = 0;
 
-// function playTrack() { 
-//   // Play
-//   if(!started){
-//     Tone.start();
-//     started = true;
-//   }
-//   console.log('click');
-//   startProgram();
-//   isPlaying = true
+function playTrack() { 
+  // Play
+  if(!started){
+    Tone.start();
+    started = true;
+  }
+  console.log('click');
+  startProgram();
+  // Replace icon with the pause icon 
+  playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-3x"></i>'; 
+} 
   
-//   // Replace icon with the pause icon 
-//   playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-3x"></i>'; 
-// } 
-  
-// function pauseTrack() { 
-//   // Stop
-  
-//   synth.mute = true;
+function pauseTrack() { 
+  // Stop
+  console.log('paused');
+  generatedSequence = [];
+  // Replace icon with the play icon 
+  playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-3x"></i>';; 
+} 
 
-//   // Replace icon with the play icon 
-//   playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-3x"></i>';; 
-// } 
+
+
+
+// Specify globally used values 
+let isPlaying = false; 
+let updateTimer; 
+  
+// Create the audio element for the player 
+let curr_track = document.createElement('audio'); 
+
+
+function playpauseTrack() {
+  if (!isPlaying) playTrack(); 
+  else pauseTrack(); 
+  isPlaying = !isPlaying;
+} 
+
 
 

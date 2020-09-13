@@ -40,22 +40,40 @@
 			<div class="main">
 				<div>
 					<video id="video" playsinline autoplay></video>
+				</div>			
+				
+				
+
+				<div class="options">
+					<br>
+					<h5> nature </h5>
+					<label class="switch">
+						<input type="checkbox" checked>
+						<span class="slider round"></span>
+					</label>
+
+					<br>
+					<h5> drums </h5>
+					<label class="switch">
+						<input type="checkbox" checked>
+						<span class="slider round"></span>
+					</label>
+
+					<br>
+					<h5> camera </h5>
+					<label class="switch">
+						<input type="checkbox" checked>
+						<span class="slider round"></span>
+					</label>
 				</div>
-        
-				<script  src="/libs/tonal.min.js"></script>
-				<script  src= "https://unpkg.com/tone"></script>
-				<script  src= "https://cdn.jsdelivr.net/npm/@magenta/music@1.0.0"></script>
-				<script  src="/libs/face-api.min.js"></script>
-				<script  src="/scripts/index.js"></script>
-				
-				
+
 				<div class="rightside">
 					<div class="player"> 
             <!-- Define the section for displaying details -->
             <div class="details"> 
-              <div class="now-playing">PLAYING x OF y</div> 
+              <div class="now-playing">PLAYING 1 OF 3</div> 
               <div class="track-art"></div> 
-              <div class="track-name">Track Name</div>
+              <div class="track-name">Neutral</div>
             </div> 
             <!-- Define the section for displaying track buttons -->
             <div class="buttons"> 
@@ -71,8 +89,17 @@
             </div> 
           </div> 
 				</div>
+				
 			</div>
 
+
+      <!-- Import libraries -->
+      <script  src="/libs/tonal.min.js"></script>
+      <script  src= "https://unpkg.com/tone"></script>
+      <script  src= "https://cdn.jsdelivr.net/npm/@magenta/music@1.0.0"></script>
+      <script  src="/libs/face-api.min.js"></script>
+
+      <script src="/scripts/index.js"></script> 
 			<script src="/scripts/script.js"></script> 
 		</div> 
   </body>
