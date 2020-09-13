@@ -32,62 +32,44 @@
 								Analytics 
 							</a>
 						</li>
-						<li>
-							<a href="\preferences.html"><img src="\images\settings.png" alt="settings" style="width:40px;"><br>
-								Preferences 
-							</a>
-						</li>
 						</center>
 					</ul>
 				</div>
 			</div>
+
 			<div class="main">
 				<div>
 					<video id="video" playsinline autoplay></video>
 				</div>
-				<script defer src="tonal.min.js"></script>
-				<script defer src= "https://unpkg.com/tone"></script>
-				<script defer src= "https://cdn.jsdelivr.net/npm/@magenta/music@1.0.0"></script>
-				<script defer src="/scripts/face-api.min.js"></script>
-				<script defer src="/scripts/index.js"></script>
+        
+				<script  src="/libs/tonal.min.js"></script>
+				<script  src= "https://unpkg.com/tone"></script>
+				<script  src= "https://cdn.jsdelivr.net/npm/@magenta/music@1.0.0"></script>
+				<script  src="/libs/face-api.min.js"></script>
+				<script  src="/scripts/index.js"></script>
 				
 				
 				<div class="rightside">
 					<div class="player"> 
-						<!-- Define the section for displaying details -->
-						<div class="details"> 
-							<div class="now-playing">PLAYING x OF y</div> 
-							<div class="track-art"></div> 
-							<div class="track-name">Track Name</div> 
-							<div class="track-artist">Track</div> 
-						</div> 
-						<!-- Define the section for displaying track buttons -->
-						<div class="buttons"> 
-							<div class="prev-track" onclick="prevTrack()"> 
-								<i class="fa fa-step-backward fa-2x"></i> 
-							</div> 
-							<div class="playpause-track" onclick="playpauseTrack()"> 
-								<i class="fa fa-play-circle fa-3x"></i> 
-							</div> 
-							<div class="next-track" onclick="nextTrack()"> 
-								<i class="fa fa-step-forward fa-2x"></i> 
-							</div> 
-						</div> 
-						<!-- Define the section for displaying the seek slider-->
-						<div class="slider_container"> 
-							<div class="current-time">00:00</div> 
-							<input type="range" min="1" max="100"
-								value="0" class="seek_slider" onchange="seekTo()"> 
-							<div class="total-duration">00:00</div> 
-						</div> 
-						<!-- Define the section for displaying the volume slider-->
-						<div class="slider_container"> 
-							<i class="fa fa-volume-down"></i> 
-							<input type="range" min="1" max="100"
-								value="99" class="volume_slider" onchange="setVolume()"> 
-							<i class="fa fa-volume-up"></i> 
-						</div> 
-					</div> 
+            <!-- Define the section for displaying details -->
+            <div class="details"> 
+              <div class="now-playing">PLAYING x OF y</div> 
+              <div class="track-art"></div> 
+              <div class="track-name">Track Name</div>
+            </div> 
+            <!-- Define the section for displaying track buttons -->
+            <div class="buttons"> 
+              <div class="prev-track" onclick="prevTrack()"> 
+                <i class="fa fa-step-backward fa-2x"></i> 
+              </div> 
+              <div class="playpause-track" onclick="playpauseTrack()"> 
+                <i class="fa fa-play-circle fa-3x"></i> 
+              </div> 
+              <div class="next-track" onclick="nextTrack()"> 
+                <i class="fa fa-step-forward fa-2x"></i> 
+              </div> 
+            </div> 
+          </div> 
 				</div>
 			</div>
 
