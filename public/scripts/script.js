@@ -39,18 +39,25 @@ let happysynth = new Tone.Sampler({
 }).connect(reverb3);
 happysynth.release.value = 2;
 
-let rainPlayer = new Tone.Player('audio/rain.wav').toDestination()
-rainPlayer.loop = true;
 
 let players = {
-  'rain': new Tone.Player('audio/rain.wav').toDestination()
-  'nature': new Tone.Player('audio/birdsong.mp3').toDestination()
+  'rain': new Tone.Player({
+    url: 'audio/rain.mp3',
+    loop: true}).toDestination(),
+  'nature': new Tone.Player({
+    url: 'audio/birdsong.mp3',
+    loop: true}).toDestination(),
+  'drums': new Tone.Player({
+    url: 'audio/drums.wav',
+    loop: true}).toDestination(),
+  'natureOn': false, 'drumsOn': false
 }
+players['rain'].volume.value = -2;
 
 const { midi, Note } = Tonal
 let chordImprov = {
   'sad': {
-    'temp': 1.1,
+    'temp': 0.9,
     'sequence': mm.sequences.quantizeNoteSequence({
       ticksPerQuarter: 220,
       totalTime: 58,
@@ -104,7 +111,7 @@ let chordImprov = {
   },
 
   'happy': {
-    'temp': 1.5,
+    'temp': 1.3,
     'sequence': mm.sequences.quantizeNoteSequence({
       ticksPerQuarter: 220,
       totalTime: 58,
@@ -153,12 +160,12 @@ let chordImprov = {
         { pitch: midi('G4'), startTime: 25.5, endTime: 28.5 }
       ]
     }, 1),
-    'chords': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'A#', 'C#', 'D#', 'F#', 'G#'],
+    'chords': ['Bm', 'Bbm', 'Gb7', 'F7', 'Ab', 'Ab7', 'G7', 'Gb7', 'F7', 'Bb7', 'Eb7', 'AM7'],
     'synth':happysynth
   },
 
   'neutral': {
-    'temp': 1.25,
+    'temp': 1.0,
     'sequence': mm.sequences.quantizeNoteSequence({
       ticksPerQuarter: 220,
       totalTime: 58,
@@ -216,7 +223,7 @@ let chordImprov = {
 const improvRNN = new mm.MusicRNN('https://storage.googleapis.com/magentadata/js/checkpoints/music_rnn/chord_pitches_improv')
 
 const natureSounds = new Tone.Players({
-  rain: '/audio/rain.wav',
+  rain: '/audio/rain.mp3',
   birdsong: '/audio/birdsong.mp3'
 });//
 
@@ -227,7 +234,7 @@ const drumSounds = new Tone.Players({
 
 
 let generatedSequence = [];
-let generationIntervalTime = Tone.Time('8n').toSeconds()*18;
+let generationIntervalTime = Tone.Time('8n').toSeconds()*17;
 
 function generateNext() {
   if (!isPlaying) return;
@@ -277,6 +284,9 @@ function playTrack() {
   if(!started){
     Tone.start();
     started = true;
+    players['rain'].start();
+    players['nature'].start();
+    players['drums'].start();
   }
   console.log('click');
   for (let e in chordImprov) chordImprov[e].synth.volume.value = 1; 

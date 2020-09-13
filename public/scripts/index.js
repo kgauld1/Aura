@@ -191,16 +191,59 @@ function toggleOptions(){
   }
 
   if (document.getElementById('nature-option').checked){
-    natureOn = true;
+    if(started){
+      natureOn = true;
+      if(!players['natureOn']){
+        players['natureOn'] = true;
+        players['rain'].start();
+        players['nature'].start();
+      }
+    }
   }
   else {
-    natureOn = false;
+    if(!started){
+      document.getElementById('nature-option').checked = true;
+    }else{
+      natureOn = false;
+      if(players['natureOn']){
+        players['natureOn'] = false;
+        players['rain'].stop();
+        players['nature'].stop();
+      }
+    }
   }
 
   if (document.getElementById('drum-option').checked){
-    drumOn = true;
+    if(started){
+      drumOn = true;
+      if(!players['drumsOn']){
+        players['drumsOn'] = true;
+        players['drums'].start();
+      }
+    }
   }
   else {
-    drumOn = false;
+    if(!started){
+      document.getElementById('drum-option').checked = true;
+    }else{
+      drumOn = false;
+      if(players['drumsOn']){
+        players['drumsOn'] = false;
+        players['drums'].stop();
+      }
+    }
   }
 }
+/*
+let players = {
+  'rain': new Tone.Player({
+    url: 'audio/rain.wav',
+    loop: true}).toDestination(),
+  'nature': new Tone.Player({
+    url: 'audio/birdsong.mp3',
+    loop: true}).toDestination(),
+  'drums': new Tone.Player({
+    url: 'audio/drums.wav',
+    loop: true}).toDestination(),
+  'natureOn': false, 'drumsOn': false
+}*/

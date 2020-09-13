@@ -3,12 +3,12 @@ var weeklyData = JSON.parse(localStorage.getItem("weeklyData"));
 
 var piechartData = [];
 for (let i=0; i<3; i++){
+  dailyData[i].data = dailyData[i].data.map(function(item) { return item/60 })
+  weeklyData[i].data = weeklyData[i].data.map(function(item) { return item/60 })
+
   piechartData[i] = dailyData[i].data.reduce(function(a,b){
   return a+b;
   }, 0);
-
-  dailyData[i].data = dailyData[i].data.map(function(item) { return item/60 })
-  weeklyData[i].data = weeklyData[i].data.map(function(item) { return item/60 })
 }
 
 new Chart(document.getElementById("daily-graph"), {
