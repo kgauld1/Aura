@@ -15,6 +15,20 @@ new Chart(document.getElementById("daily-graph"), {
       text: 'Emotions per Hour',
       responsive: true,
       maintainAspectRatio: true
+    },
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Seconds'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Hour'
+        }
+      }]
     }
   }
 })
@@ -32,6 +46,20 @@ new Chart(document.getElementById("weekly-graph"), {
       text: 'Emotions During the Past Seven Days',
       responsive: true,
       maintainAspectRatio: true
+    },
+    scales: {
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Seconds'
+        }
+      }],
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Day'
+        }
+      }]
     }
   }
 })

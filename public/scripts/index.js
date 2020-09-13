@@ -204,3 +204,39 @@ function prevTrack() {
     
   loadTrack(track_index);  
 } 
+
+
+// Toggle changes
+function toggleOptions(){
+  if (document.getElementById("camera-option").checked){
+    video.play();
+    document.getElementById('video-div').style.display = "inline";
+    document.querySelector(".rightside").style.marginRight = "100px"
+  }
+  else {
+    video.pause();
+    document.getElementById('video-div').style.display = "none";
+    document.querySelector(".rightside").style.marginRight = "35%";
+  }
+
+  if (document.getElementById('mood-option').checked){
+    basedOnMood = true;
+  }
+  else {
+    basedOnMood = false;
+  }
+
+  if (document.getElementById('nature-option').checked){
+    natureOn = true;
+  }
+  else {
+    natureOn = false;
+  }
+
+  if (document.getElementById('drum-option').checked){
+    drumOn = true;
+  }
+  else {
+    drumOn = false;
+  }
+}

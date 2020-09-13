@@ -18,7 +18,8 @@
 				<div class="sidebar-content">
 					<center>
 						<img src="\images\auraLogo.png" alt="logo" style="width: 100%;"> 
-						<h1>Aura </h1>
+						<img src="\images\auraText.png" alt="aura" >
+					
 					</center>
 					<ul>
 						<center>
@@ -38,31 +39,34 @@
 			</div>
 
 			<div class="main">
-				<div>
-					<video id="video" playsinline autoplay></video>
-				</div>			
-				
-				
 
+        <div id="video-div"> <video id="video" autoplay inline></video> </div>	
+		
 				<div class="options">
-					<br>
-					<h5> nature </h5>
+					<h5> Camera </h5>
 					<label class="switch">
-						<input type="checkbox" checked>
+						<input type="checkbox" checked id="camera-option" onchange="toggleOptions()">
+						<span class="slider round"></span>
+					</label>
+
+          <br>
+					<h5> Mood Based </h5>
+					<label class="switch">
+						<input type="checkbox" checked id="mood-option" onchange="toggleOptions()">
 						<span class="slider round"></span>
 					</label>
 
 					<br>
-					<h5> drums </h5>
+					<h5> Nature </h5>
 					<label class="switch">
-						<input type="checkbox" checked>
+						<input type="checkbox" checked id="nature-option" onchange="toggleOptions()">
 						<span class="slider round"></span>
 					</label>
 
 					<br>
-					<h5> camera </h5>
+					<h5> Drums </h5>
 					<label class="switch">
-						<input type="checkbox" checked>
+						<input type="checkbox" checked id="drum-option" onchange="toggleOptions()">
 						<span class="slider round"></span>
 					</label>
 				</div>
